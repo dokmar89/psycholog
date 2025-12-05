@@ -10,8 +10,13 @@ interface ChatMessageProps {
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isAi = message.role === 'model';
 
+  // Do not render empty AI bubbles (waiting for stream)
+  if (isAi && !message.content) {
+    return null;
+  }
+
   return (
-    <div className={`flex w-full ${isAi ? 'justify-start' : 'justify-end'} mb-6 group`}>
+    <div className={`flex w-full ${isAi ? 'justify-start' : 'justify-end'} mb-6 group animate-in fade-in slide-in-from-bottom-2 duration-300`}>
       <div className={`flex max-w-[85%] md:max-w-[75%] gap-3 ${isAi ? 'flex-row' : 'flex-row-reverse'}`}>
         
         {/* Avatar */}
